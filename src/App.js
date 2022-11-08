@@ -1,24 +1,66 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import SignUpPage from "./components/SignUpPage";
+import Loginpage from "./components/Loginpage";
+import Header from "./components/Header";
+import { ToastContainer } from "react-bootstrap";
+import Homepage from "./components/Homepage";
+import PrivateRoutes from "./utils/PrivateRoutes";
+import SideBar from "./TestC/SideBar";
+import Test from "./TestC/Test";
+import FileInputForm from "./TestC/FileInputForm";
+import FileFormActions from "./TestC/FileFormActions";
+
+import { useState, useEffect } from "react";
+import Base from "./components/Base";
 
 function App() {
+  const [Authenticated, setAuthenticated] = useState(false);
+
+  useEffect(() => {
+    if (sessionStorage.getItem("token") !== null) {
+      setAuthenticated(true);
+    }
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <SideBar />
+      {/* <Router>
+        <Routes>
+          <Route
+            path='/'
+            element={
+              <Homepage
+                children={
+                  <Loginpage
+                    Authenticated={Authenticated}
+                    setAuthenticated={setAuthenticated}
+                  />
+                }
+              />
+            }
+          />
+          <Route
+            path='/signup'
+            element={
+              <Homepage
+                children={
+                  <SignUpPage
+                    Authenticated={Authenticated}
+                    setAuthenticated={setAuthenticated}
+                  />
+                }
+              />
+            }
+          />
+          <Route
+            path='/home'
+            element={<Homepage children={<FileInputForm />} />}
+          />
+        </Routes>
+      </Router> */}
+    </>
   );
 }
 
