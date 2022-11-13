@@ -5,10 +5,13 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Features from "./Features";
 
 const NAME_REGEX = /\b([a-zA-ZÀ-ÿ][-,a-z. ']+[ ]*)+/;
 const PWD_REGEX =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+
+const EMAIL_REGEX = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/;
 
 const SignUpPage = ({ Authenticated, setAuthenticated }) => {
   const AccountRef = useRef();
@@ -24,6 +27,7 @@ const SignUpPage = ({ Authenticated, setAuthenticated }) => {
   const [lnameFocus, setLnameFocus] = useState(false);
 
   const [email, setEmail] = useState("");
+  const [validEmail, setValidEmail] = useState(false);
   const [emailFocus, setEmailFocus] = useState(false);
 
   const [password, setPassword] = useState("");
@@ -55,6 +59,11 @@ const SignUpPage = ({ Authenticated, setAuthenticated }) => {
   }, [lastName]);
 
   useEffect(() => {
+    const result = EMAIL_REGEX.test(email);
+    setValidEmail(result);
+  }, [email]);
+
+  useEffect(() => {
     const result = PWD_REGEX.test(password);
     setValidPassword(result);
     const match = password === matchPwd;
@@ -72,7 +81,8 @@ const SignUpPage = ({ Authenticated, setAuthenticated }) => {
     const v1 = NAME_REGEX.test(firstName);
     const v2 = NAME_REGEX.test(lastName);
     const v3 = PWD_REGEX.test(password);
-    if (!v1 || !v2 || !v3) {
+    const v4 = EMAIL_REGEX.test(email);
+    if (!v1 || !v2 || !v3 || !v4) {
       setErrMsg("Invalid Entry");
       return;
     }
@@ -90,6 +100,7 @@ const SignUpPage = ({ Authenticated, setAuthenticated }) => {
       // sending the email value with the token
       sessionStorage.setItem("email", resp.data.email);
       setAuthenticated(true);
+      toast.success("Registered!");
     } catch (error) {
       setSuccessMsg("");
       if (error.resp) {
@@ -98,6 +109,7 @@ const SignUpPage = ({ Authenticated, setAuthenticated }) => {
         setErrMsg("Error: Unexpected Error");
       }
       setAuthenticated(false);
+      toast.error("Error: Registration Failed!");
       return;
     }
     // clear input fields
@@ -107,11 +119,8 @@ const SignUpPage = ({ Authenticated, setAuthenticated }) => {
     setPassword("");
     setMatchPwd("");
 
-    // set the error message to be null
+    // err message to null
     setErrMsg("");
-
-    // set success message to be successful
-    setSuccessMsg("Successfully Signed Up");
 
     await timeout(1000);
     navigate("/");
@@ -121,24 +130,10 @@ const SignUpPage = ({ Authenticated, setAuthenticated }) => {
     setSuccessMsg("");
   }, [firstName, lastName, email, password]);
 
-  // show success message
-  if (successMsg != "") {
-    return toast.success(successMsg);
-  } else {
-    console.log("");
-  }
-
-  // show error message
-  if (errMsg != "") {
-    return toast.error(errMsg);
-  } else {
-    console.log("");
-  }
-
   return (
     <section class='h-100 gradient-form'>
       <ToastContainer />
-      <div class='container py-5 h-100'>
+      <div class='container py-5 h-100 mb-2'>
         <div class='row d-flex justify-content-center align-items-center h-100'>
           <div class='col-xl-10'>
             <SignUp
@@ -156,6 +151,7 @@ const SignUpPage = ({ Authenticated, setAuthenticated }) => {
               setMatchPwd={setMatchPwd}
               validFname={validFname}
               validLname={validLname}
+              validEmail={validEmail}
               validPassword={validPassword}
               validMatch={validMatch}
               fnameFocus={fnameFocus}
@@ -172,6 +168,7 @@ const SignUpPage = ({ Authenticated, setAuthenticated }) => {
           </div>
         </div>
       </div>
+      <Features />
     </section>
   );
 };

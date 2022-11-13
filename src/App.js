@@ -1,19 +1,10 @@
 import "./App.css";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import SignUpPage from "./components/SignUpPage";
 import Loginpage from "./components/Loginpage";
-import Header from "./components/Header";
-import { ToastContainer } from "react-bootstrap";
 import Homepage from "./components/Homepage";
-import PrivateRoutes from "./utils/PrivateRoutes";
-import SideBar from "./TestC/SideBar";
-import Test from "./TestC/Test";
-import FileInputForm from "./TestC/FileInputForm";
-import FileFormActions from "./TestC/FileFormActions";
-
-import { useState, useEffect } from "react";
-import Base from "./components/Base";
+import UserDashboard from "./components/UserDashboard";
 
 function App() {
   const [Authenticated, setAuthenticated] = useState(false);
@@ -25,8 +16,7 @@ function App() {
   }, []);
   return (
     <>
-      <SideBar />
-      {/* <Router>
+      <Router>
         <Routes>
           <Route
             path='/'
@@ -56,10 +46,16 @@ function App() {
           />
           <Route
             path='/home'
-            element={<Homepage children={<FileInputForm />} />}
+            element={
+              <Homepage
+                Authenticated={Authenticated}
+                setAuthenticated={setAuthenticated}
+                children={<UserDashboard Authenticated={Authenticated} />}
+              />
+            }
           />
         </Routes>
-      </Router> */}
+      </Router>
     </>
   );
 }

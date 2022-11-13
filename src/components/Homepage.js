@@ -1,10 +1,13 @@
 import React from "react";
 import Header from "./Header";
 
-const Homepage = ({ children }) => {
+const Homepage = ({ children, Authenticated, setAuthenticated }) => {
   return (
     <section>
-      <Header />
+      <Header
+        Authenticated={Authenticated}
+        setAuthenticated={setAuthenticated}
+      />
       {children}
     </section>
   );

@@ -1,6 +1,6 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../components/LoginPage.css";
+import "../Styles/Slideshow.css";
 
 const Slideshow = () => {
   return (

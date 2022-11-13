@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { ToastContainer } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 // accepting props from parent component
@@ -51,14 +50,6 @@ const Login = (props) => {
           <button className='btn btn-primary btn-block fa-lg mb-3'>
             Submit
           </button>
-        </div>
-        <div className='text-center mb-5 pb-1'>
-          <a
-            href='#'
-            className='text-muted'
-          >
-            Forgot Password?
-          </a>
         </div>
         <div className='d-flex align-items-center justify-content-center pb-4'>
           <p className='mb-0 me-2'>Don't have an account?</p>

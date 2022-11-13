@@ -1,6 +1,6 @@
-import React, { useState, useRef, useEffect } from "react";
+import React from "react";
 import Slideshow from "./Slideshow";
-import "./SignUp.css";
+import "../Styles/SignUp.css";
 import { FaInfoCircle, FaCheck, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
@@ -64,7 +64,7 @@ const SignUp = (props) => {
                     }
                   >
                     <FaInfoCircle />
-                    FirstName must be minimum 4 characters <br />
+                    FirstName should not be empty <br />
                   </p>
                   {/* error note end */}
                 </div>
@@ -115,7 +115,7 @@ const SignUp = (props) => {
                     }
                   >
                     <FaInfoCircle />
-                    LastName must be minimum 4 characters <br />
+                    LastName should not be empty <br />
                   </p>
                   {/* end of last name note */}
                 </div>
@@ -128,19 +128,46 @@ const SignUp = (props) => {
                   class='form-label'
                   htmlFor='emailAddress'
                 >
-                  Email Address
+                  Email Address:
+                  <span className={props.validEmail ? "valid" : "hide"}>
+                    <FaCheck />
+                  </span>
+                  <span
+                    className={
+                      props.validEmail || !props.email ? "hide" : "invalid"
+                    }
+                  >
+                    <FaTimes />
+                  </span>
                 </label>
                 <input
                   id='emailAddress'
                   name='email'
+                  ref={props.AccountRef}
                   value={props.email}
                   type='email'
                   className='form-control'
                   placeholder='Email Address'
-                  required
                   autoComplete='off'
                   onChange={(e) => props.setEmail(e.target.value)}
+                  required
+                  aria-invalid={props.validEmail ? "false" : "true"}
+                  aria-describedBy='emailnote'
+                  onFocus={() => props.setEmailFocus(true)}
+                  onBlur={() => props.setEmailFocus(false)}
                 />
+                <p
+                  id='emailnote'
+                  className={
+                    props.emailFocus && props.email && !props.validEmail
+                      ? "instructions"
+                      : "offscreen"
+                  }
+                >
+                  <FaInfoCircle />
+                  Must have one @ symbol <br />
+                  domain must have maximum 3 characters <br />
+                </p>
               </div>
               {/* end of email address Input */}
 
@@ -275,6 +302,7 @@ const SignUp = (props) => {
                     !props.validFname ||
                     !props.validLname ||
                     !props.validPassword ||
+                    !props.validEmail ||
                     !props.validMatch
                   }
                 >

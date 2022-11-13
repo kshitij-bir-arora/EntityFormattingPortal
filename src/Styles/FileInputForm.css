@@ -1,0 +1,68 @@
+.zone {
+   align-items: center;
+   border: 2px dashed #ccc;
+    display: flex;
+    border-radius: 8px;
+    flex-direction: column;
+    height: 200px !important;
+    justify-content: center;
+    padding: 20px;
+}
+
+.zone:hover {
+    border-color: #686868;
+}
+.file{
+    background: linear-gradient(#EEE,#DDD);
+    border-radius: 20px;
+    display: flex;
+    height: 120px;
+    width: 120px;
+    position: relative;
+    z-index: 10px;
+    flex-direction: column;
+    justify-content: center;
+}
+.info {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.size {
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 3px;
+    margin-bottom: .5em;
+    justify-content: center;
+    display: flex;
+}
+.name {
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 3px;
+    font-size: 12px;
+    margin-bottom: .5em;
+}
+.ProgressBar{
+    bottom: 14px;
+    position: absolute;
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.default{
+    border-color: #ccc;
+}
+.remove {
+    height: 23px;
+    position: absolute;
+    right: 6px;
+    top: 6px;
+    width: 23px;
+    color: #A01919;
+}
+
+.remove:active {
+    filter: brightness(0.40);
+}
+

@@ -35,7 +35,7 @@ const Loginpage = ({ Authenticated, setAuthenticated }) => {
         email,
         password,
       });
-      sessionStorage.setItem("token", resp.data.message);
+      sessionStorage.setItem("token", resp.data.token);
       sessionStorage.setItem("email", resp.data.email);
       setAuthenticated(true);
     } catch (error) {
