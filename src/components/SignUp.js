@@ -65,6 +65,7 @@ const SignUp = (props) => {
                   >
                     <FaInfoCircle />
                     FirstName should not be empty <br />
+                    Should not contain any number <br />
                   </p>
                   {/* error note end */}
                 </div>
@@ -116,6 +117,7 @@ const SignUp = (props) => {
                   >
                     <FaInfoCircle />
                     LastName should not be empty <br />
+                    Should not contain any number <br />
                   </p>
                   {/* end of last name note */}
                 </div>

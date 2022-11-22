@@ -7,7 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Features from "./Features";
 
-const NAME_REGEX = /\b([a-zA-ZÀ-ÿ][-,a-z. ']+[ ]*)+/;
+const NAME_REGEX = /^[a-z ,.'-]+$/i;
 const PWD_REGEX =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
 

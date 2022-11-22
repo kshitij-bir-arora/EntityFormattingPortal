@@ -181,7 +181,6 @@ const UserDashboard = ({ Authenticated }) => {
         break;
       default:
         return rows;
-        break;
     }
 
     setRowData(res);
