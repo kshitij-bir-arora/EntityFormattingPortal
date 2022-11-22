@@ -1,10 +1,10 @@
+
 .zone {
    align-items: center;
    border: 2px dashed #ccc;
     display: flex;
     border-radius: 8px;
     flex-direction: column;
-    height: 200px !important;
     justify-content: center;
     padding: 20px;
 }

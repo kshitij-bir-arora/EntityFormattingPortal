@@ -216,7 +216,7 @@ const UserDashboard = ({ Authenticated }) => {
       <ToastContainer />
       <div className='row mb-2'>
         {/* upload file component */}
-        <div className='col-lg-12 '>
+        <div className='col-lg-7 '>
           {/* enter file uploader here */}
           <CSVReader
             onUploadAccepted={handleFileUpload}
@@ -266,7 +266,50 @@ const UserDashboard = ({ Authenticated }) => {
               </>
             )}
           </CSVReader>
-          {/* end of file uploader */}
+        </div>
+        {/* end of file uploader */}
+        <div className='col-lg-5'>
+          <div style={{ margin: "1rem" }}>
+            <Typography
+              variant='h6'
+              style={{ margin: "1rem 0" }}
+            >
+              Actions
+            </Typography>
+            <FormControl fullWidth>
+              <InputLabel id='select-label'>Select Column</InputLabel>
+              <Select
+                labelId='select-label'
+                id='simple-select'
+                value={selectedColumn}
+                label='Select Column'
+                onChange={(e) => setSelectedColumn(e.target.value)}
+              >
+                {/* mapping the header values in our file to the dropdown
+                          where user can select the column to format */}
+                {columns.map((column) => (
+                  <MenuItem value={column.accessor}>{column.Header}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </div>
+          <div style={{ margin: "1rem" }}>
+            <FormControl fullWidth>
+              <InputLabel id='select-label'>Format Options</InputLabel>
+              <Select
+                labelId='select-label'
+                id='simple-select'
+                value={selectedFormat}
+                label='Format Options'
+                onChange={handleFormat}
+              >
+                {/* placing the format options available for each column */}
+                {config[selectedColumn]?.map((val) => (
+                  <MenuItem value={val}>{val}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </div>
         </div>
       </div>
       {/* actions and table component dynamically rendered here */}
@@ -277,92 +320,45 @@ const UserDashboard = ({ Authenticated }) => {
               <div className='card-body'>
                 <div className='row'>
                   {/* start of actions component */}
-                  <div className='col-lg-5'>
-                    <div style={{ margin: "1rem" }}>
-                      <Typography
-                        variant='h6'
-                        style={{ margin: "1rem 0" }}
-                      >
-                        Actions
-                      </Typography>
-                      <FormControl fullWidth>
-                        <InputLabel id='select-label'>Select Column</InputLabel>
-                        <Select
-                          labelId='select-label'
-                          id='simple-select'
-                          value={selectedColumn}
-                          label='Select Column'
-                          onChange={(e) => setSelectedColumn(e.target.value)}
-                        >
-                          {/* mapping the header values in our file to the dropdown
-                          where user can select the column to format */}
-                          {columns.map((column) => (
-                            <MenuItem value={column.accessor}>
-                              {column.Header}
-                            </MenuItem>
-                          ))}
-                        </Select>
-                      </FormControl>
-                    </div>
-                    <div style={{ margin: "1rem" }}>
-                      <FormControl fullWidth>
-                        <InputLabel id='select-label'>
-                          Format Options
-                        </InputLabel>
-                        <Select
-                          labelId='select-label'
-                          id='simple-select'
-                          value={selectedFormat}
-                          label='Format Options'
-                          onChange={handleFormat}
-                        >
-                          {/* placing the format options available for each column */}
-                          {config[selectedColumn]?.map((val) => (
-                            <MenuItem value={val}>{val}</MenuItem>
-                          ))}
-                        </Select>
-                      </FormControl>
-                    </div>
-                    <div className='row'>
-                      <div className='col-lg-4 ms-3 mt-3'>
-                        <form onSubmit={handleRemove}>
-                          <button className='btn btn-danger'>
-                            <Typography
-                              variant='button'
-                              display='block'
-                            >
-                              Remove File
-                            </Typography>
-                          </button>
-                        </form>
-                      </div>
-                      <div className='col-lg-4 mt-3'>
-                        <form>
-                          <button
-                            className='btn btn-outline-success'
-                            onClick={handleDownload}
+                  <div className='row'>
+                    <div className='col-lg-4 ms-3 mt-3'>
+                      <form onSubmit={handleRemove}>
+                        <button className='btn btn-danger'>
+                          <Typography
+                            variant='button'
+                            display='block'
                           >
-                            <Typography
-                              variant='button'
-                              display='block'
-                            >
-                              Download File
-                            </Typography>
-                          </button>
-                        </form>
-                      </div>
+                            Remove File
+                          </Typography>
+                        </button>
+                      </form>
+                    </div>
+                    <div className='col-lg-4 mt-3'>
+                      <form>
+                        <button
+                          className='btn btn-outline-success'
+                          onClick={handleDownload}
+                        >
+                          <Typography
+                            variant='button'
+                            display='block'
+                          >
+                            Download File
+                          </Typography>
+                        </button>
+                      </form>
                     </div>
                   </div>
-                  {/* end of actions component */}
-                  {/* start of react table component */}
-                  <div className='col-lg-7'>
-                    <ReactTable
-                      rowData={rows}
-                      columnData={columns}
-                    />
-                  </div>
-                  {/* end of react table component */}
                 </div>
+                {/* end of actions component */}
+                {/* start of react table component */}
+                <div className='col-lg-7'>
+                  <ReactTable
+                    rowData={rows}
+                    columnData={columns}
+                  />
+                </div>
+                {/* end of react table component */}
               </div>
             </div>
           </div>

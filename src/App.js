@@ -5,6 +5,7 @@ import SignUpPage from "./components/SignUpPage";
 import Loginpage from "./components/Loginpage";
 import Homepage from "./components/Homepage";
 import UserDashboard from "./components/UserDashboard";
+import Dashboard from "./components/Dashboard";
 
 function App() {
   const [Authenticated, setAuthenticated] = useState(false);
@@ -50,7 +51,7 @@ function App() {
               <Homepage
                 Authenticated={Authenticated}
                 setAuthenticated={setAuthenticated}
-                children={<UserDashboard Authenticated={Authenticated} />}
+                children={<Dashboard Authenticated={Authenticated} />}
               />
             }
           />
