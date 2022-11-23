@@ -20,6 +20,8 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import NewTable from "./NewTable";
 import moment from "moment";
+import { format } from "date-fns";
+import ReactTable from "./ReactTable";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -94,21 +96,8 @@ const Dashboard = () => {
 
     switch (selectedColumn) {
       case "date":
-        let moment = require("moment");
         if (e.target.value === "DD/MMM/YYYY") {
           res = newOriginalData.map((row) => {
-            // let newDate = row[selectedColumn].split(/[/]/);
-            // console.log(newDate);
-            // let arr = [];
-            // arr.push(newDate);
-            // console.log(arr);
-            // let formattedDate = newDate.map((item) => {
-            //   item = new Date(newDate[2], newDate[1], newDate[0]);
-            //   return item;
-            // });
-            // function formatDate(date) {
-            //   return date.format("DD MMM YYYY");
-            // }
             const newDate = moment(row[selectedColumn]);
             row[selectedColumn] = newDate.format("DD/MMM/YYYY");
             return row;
@@ -396,9 +385,9 @@ const Dashboard = () => {
         <div className='row mt-3'>
           <div className='col-lg-12'>
             {/* <ReactTable
-                  rowData={rows}
-                  columnData={columns}
-                /> */}
+              rowData={rows}
+              columnData={columns}
+            /> */}
             <NewTable
               rowData={rows}
               columnData={columns}

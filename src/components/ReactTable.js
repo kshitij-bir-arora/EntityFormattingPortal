@@ -1,5 +1,5 @@
 import React from "react";
-import { useTable, useSortBy } from "react-table";
+import { useTable, useSortBy, usePagination } from "react-table";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { GrAscend, GrDescend } from "react-icons/gr";
 
@@ -8,8 +8,8 @@ export default function ReactTable({ rowData, columnData }) {
 
   const columns = columnData;
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({ columns, data }, useSortBy);
+  const { getTableProps, getTableBodyProps, headerGroups, page, prepareRow } =
+    useTable({ columns, data }, useSortBy, usePagination);
 
   return (
     <table
@@ -39,7 +39,7 @@ export default function ReactTable({ rowData, columnData }) {
         ))}
       </thead>
       <tbody {...getTableBodyProps()}>
-        {rows.map((row) => {
+        {page.map((row) => {
           prepareRow(row);
           return (
             <tr {...row.getRowProps()}>
